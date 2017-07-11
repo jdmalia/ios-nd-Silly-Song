@@ -16,16 +16,16 @@ let bananaFanaTemplate = [
 
 func shortNameForName(name: String) -> String
 {
-    var lowercaseName = name.lowercased()
+    let lowercaseName = name.lowercased()
     let vowelSet = CharacterSet(charactersIn: "aeiou")
    
-    while( !vowelSet.contains( lowercaseName.unicodeScalars.first! ) )
+    var shortName = lowercaseName
+    while( shortName.characters.count > 0 && !vowelSet.contains( shortName.unicodeScalars.first! ) )
     {
-        let index = lowercaseName.index(lowercaseName.startIndex, offsetBy: 1)
-        lowercaseName = lowercaseName.substring(from: index)
-        print( "HERE")
+        let index = shortName.index(shortName.startIndex, offsetBy: 1)
+        shortName = shortName.substring(from: index)
     }
-    return lowercaseName
+    return shortName.characters.count > 0 ? shortName : lowercaseName
 }
 
 func lyricsForName(lyricsTemplate: String, fullName: String) -> String {
@@ -50,12 +50,6 @@ class ViewController: UIViewController
     {
         super.viewDidLoad()
         nameField.delegate = self
-    }
-
-    override func didReceiveMemoryWarning()
-    {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     @IBAction func reset(_ sender: AnyObject)
